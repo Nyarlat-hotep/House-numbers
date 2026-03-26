@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabase'
 import Modal from './Modal'
 import './PaymentsPanel.css'
 
+const PAGE_SIZE = 6
+
 function formatDate(dateStr) {
   const [year, month] = dateStr.split('-')
   const d = new Date(year, month - 1)
@@ -17,6 +19,7 @@ export default function PaymentsPanel({ payments, onRefresh }) {
   const [showModal, setShowModal] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(emptyForm())
+  const [page, setPage] = useState(1)
 
   function openAdd() {
     setEditing(null)
@@ -58,6 +61,9 @@ export default function PaymentsPanel({ payments, onRefresh }) {
   }
 
   const total = payments.reduce((s, p) => s + Number(p.amount), 0)
+  const totalPages = Math.max(1, Math.ceil(payments.length / PAGE_SIZE))
+  const currentPage = Math.min(page, totalPages)
+  const paginated = payments.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   return (
     <div className="panel payments-panel">
@@ -77,7 +83,7 @@ export default function PaymentsPanel({ payments, onRefresh }) {
           </tr>
         </thead>
         <tbody>
-          {payments.map(p => (
+          {paginated.map(p => (
             <tr key={p.id}>
               <td>{formatDate(p.date)}</td>
               <td className="amount-positive">${Number(p.amount).toLocaleString()}</td>
@@ -99,6 +105,14 @@ export default function PaymentsPanel({ payments, onRefresh }) {
           </tr>
         </tfoot>
       </table>
+
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button className="btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>← Prev</button>
+          <span className="page-indicator">Page {currentPage} / {totalPages}</span>
+          <button className="btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next →</button>
+        </div>
+      )}
 
       {showModal && (
         <Modal title={editing ? 'Edit Payment' : 'Add Payment'} onClose={() => setShowModal(false)}>
