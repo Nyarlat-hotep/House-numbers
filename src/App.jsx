@@ -1,25 +1,53 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
+import Dashboard from './components/Dashboard'
+import './App.css'
 
 function App() {
-  const [balance, setBalance] = useState(null)
+  const [config, setConfig] = useState(null)
+  const [payments, setPayments] = useState([])
+  const [adjustments, setAdjustments] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  useEffect(() => {
-    async function fetchBalance() {
-      const { data: config } = await supabase.from('config').select('initial_appraisal').single()
-      const { data: payments } = await supabase.from('payments').select('amount')
-      const { data: adjustments } = await supabase.from('adjustments').select('amount')
+  async function fetchAll() {
+    const [configRes, pmtsRes, adjsRes] = await Promise.all([
+      supabase.from('config').select('*').single(),
+      supabase.from('payments').select('*').order('date', { ascending: true }),
+      supabase.from('adjustments').select('*').order('date', { ascending: true }),
+    ])
 
-      const totalPaid = payments.reduce((sum, p) => sum + Number(p.amount), 0)
-      const totalAdjusted = adjustments.reduce((sum, a) => sum + Number(a.amount), 0)
-      const remaining = Number(config.initial_appraisal) + totalAdjusted - totalPaid
-
-      setBalance(remaining)
+    if (configRes.error || pmtsRes.error || adjsRes.error) {
+      setError('Failed to load data. Check Supabase connection.')
+      setLoading(false)
+      return
     }
-    fetchBalance()
-  }, [])
 
-  return <div>{balance !== null ? `Balance: $${balance.toLocaleString()}` : 'Loading...'}</div>
+    setConfig(configRes.data)
+    setPayments(pmtsRes.data ?? [])
+    setAdjustments(adjsRes.data ?? [])
+    setLoading(false)
+  }
+
+  useEffect(() => { fetchAll() }, [])
+
+  if (loading) return (
+    <div style={{ color: 'var(--cyan)', padding: '2rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
+      LOADING...
+    </div>
+  )
+
+  if (error) return (
+    <div style={{ color: 'var(--red)', padding: '2rem', fontFamily: 'var(--font-mono)' }}>
+      {error}
+    </div>
+  )
+
+  return (
+    <div className="app">
+      <Dashboard config={config} payments={payments} adjustments={adjustments} />
+    </div>
+  )
 }
 
 export default App
