@@ -62,7 +62,8 @@
 }
 
 .form-field input:focus,
-.form-field select:focus {
+.form-field select:focus,
+.form-field textarea:focus {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1px var(--cyan-dim);
 }

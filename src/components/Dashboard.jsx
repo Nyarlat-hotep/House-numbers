@@ -4,7 +4,7 @@ function fmt(n) {
   return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
 
-export default function Dashboard({ config, payments, adjustments }) {
+export default function Dashboard({ config, payments = [], adjustments = [] }) {
   const initialAppraisal = Number(config?.initial_appraisal ?? 0)
   const totalPaid = payments.reduce((sum, p) => sum + Number(p.amount), 0)
   const totalAdjusted = adjustments.reduce((sum, a) => sum + Number(a.amount), 0)
