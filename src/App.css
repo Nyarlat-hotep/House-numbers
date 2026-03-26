@@ -89,3 +89,26 @@ tr:hover td {
 .amount-negative {
   color: var(--red);
 }
+
+@media (max-width: 640px) {
+  .app {
+    padding: 1rem 0.75rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  th, td {
+    padding: 0.45rem 0.5rem;
+  }
+
+  .btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.65rem;
+  }
+}

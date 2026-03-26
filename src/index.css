@@ -41,3 +41,11 @@ button {
 input, select, textarea {
   font-family: var(--font-mono);
 }
+
+@media (max-width: 640px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

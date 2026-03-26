@@ -63,3 +63,17 @@
 .stat-value.cyan { color: var(--cyan); }
 .stat-value.green { color: var(--green); }
 .stat-value.red { color: var(--red); }
+
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 1.5rem 1rem 1rem;
+  }
+
+  .dashboard-stats {
+    gap: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 0.85rem;
+  }
+}

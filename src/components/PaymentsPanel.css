@@ -33,3 +33,15 @@
   display: flex;
   gap: 0.5rem;
 }
+
+@media (max-width: 640px) {
+  .panel-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .row-actions {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+}
