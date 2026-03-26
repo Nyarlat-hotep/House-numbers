@@ -54,7 +54,7 @@
 
 .btn-danger:hover {
   background: var(--red-dim);
-  box-shadow: 0 0 12px rgba(255, 62, 108, 0.4);
+  box-shadow: var(--red-glow);
 }
 
 table {

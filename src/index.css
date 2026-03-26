@@ -11,6 +11,7 @@
   --cyan: #00e5ff;
   --cyan-dim: rgba(0, 229, 255, 0.15);
   --cyan-glow: 0 0 12px rgba(0, 229, 255, 0.4);
+  --red-glow: 0 0 12px rgba(255, 62, 108, 0.4);
   --green: #00ff9d;
   --green-dim: rgba(0, 255, 157, 0.12);
   --red: #ff3e6c;
