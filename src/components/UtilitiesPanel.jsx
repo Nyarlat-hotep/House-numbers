@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import Modal from './Modal'
 
@@ -13,6 +13,10 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
   const [appraisalInput, setAppraisalInput] = useState(String(config?.initial_appraisal ?? ''))
   const [editingAppraisal, setEditingAppraisal] = useState(false)
 
+  useEffect(() => {
+    setAppraisalInput(String(config?.initial_appraisal ?? ''))
+  }, [config])
+
   function openAdd() {
     setEditing(null)
     setForm(emptyForm())
@@ -26,16 +30,16 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
   }
 
   async function handleSave() {
+    if (!form.name || !form.monthly_cost || isNaN(parseFloat(form.monthly_cost))) return
     const payload = {
       name: form.name,
       monthly_cost: parseFloat(form.monthly_cost),
       notes: form.notes || null,
     }
-    if (editing) {
-      await supabase.from('utilities').update(payload).eq('id', editing.id)
-    } else {
-      await supabase.from('utilities').insert(payload)
-    }
+    const { error } = editing
+      ? await supabase.from('utilities').update(payload).eq('id', editing.id)
+      : await supabase.from('utilities').insert(payload)
+    if (error) { alert('Failed to save utility. Please try again.'); return }
     setShowModal(false)
     onRefresh()
   }
@@ -47,7 +51,9 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
   }
 
   async function handleAppraisalSave() {
-    await supabase.from('config').update({ initial_appraisal: parseFloat(appraisalInput) }).eq('id', 1)
+    if (!appraisalInput || isNaN(parseFloat(appraisalInput))) return
+    const { error } = await supabase.from('config').update({ initial_appraisal: parseFloat(appraisalInput) }).eq('id', 1)
+    if (error) { alert('Failed to save appraisal amount. Please try again.'); return }
     setEditingAppraisal(false)
     onRefresh()
   }

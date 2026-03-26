@@ -34,16 +34,16 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
   }
 
   async function handleSave() {
+    if (!form.date || !form.amount || isNaN(parseFloat(form.amount))) return
     const payload = {
       date: form.date,
       amount: -Math.abs(parseFloat(form.amount)),
       notes: form.notes || null,
     }
-    if (editing) {
-      await supabase.from('adjustments').update(payload).eq('id', editing.id)
-    } else {
-      await supabase.from('adjustments').insert(payload)
-    }
+    const { error } = editing
+      ? await supabase.from('adjustments').update(payload).eq('id', editing.id)
+      : await supabase.from('adjustments').insert(payload)
+    if (error) { alert('Failed to save adjustment. Please try again.'); return }
     setShowModal(false)
     onRefresh()
   }

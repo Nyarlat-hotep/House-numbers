@@ -36,17 +36,17 @@ export default function PaymentsPanel({ payments, onRefresh }) {
   }
 
   async function handleSave() {
+    if (!form.date || !form.amount || isNaN(parseFloat(form.amount))) return
     const payload = {
       date: form.date,
       amount: parseFloat(form.amount),
       type: form.type,
       notes: form.notes || null,
     }
-    if (editing) {
-      await supabase.from('payments').update(payload).eq('id', editing.id)
-    } else {
-      await supabase.from('payments').insert(payload)
-    }
+    const { error } = editing
+      ? await supabase.from('payments').update(payload).eq('id', editing.id)
+      : await supabase.from('payments').insert(payload)
+    if (error) { alert('Failed to save payment. Please try again.'); return }
     setShowModal(false)
     onRefresh()
   }
