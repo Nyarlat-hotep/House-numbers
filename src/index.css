@@ -1,0 +1,42 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #080c14;
+  --bg-panel: #0d1421;
+  --bg-panel-hover: #111a2e;
+  --cyan: #00e5ff;
+  --cyan-dim: rgba(0, 229, 255, 0.15);
+  --cyan-glow: 0 0 12px rgba(0, 229, 255, 0.4);
+  --green: #00ff9d;
+  --green-dim: rgba(0, 255, 157, 0.12);
+  --red: #ff3e6c;
+  --red-dim: rgba(255, 62, 108, 0.12);
+  --text-primary: #c8d8e8;
+  --text-dim: #5a7a9a;
+  --border: rgba(0, 229, 255, 0.2);
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+button {
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: var(--font-mono);
+}
