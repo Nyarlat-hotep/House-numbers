@@ -6,13 +6,13 @@
   border-radius: 2px;
 }
 
-.type-badge.monthly {
+.payments-panel .type-badge.monthly {
   background: var(--green-dim);
   color: var(--green);
   border: 1px solid rgba(0, 255, 157, 0.3);
 }
 
-.type-badge.adhoc {
+.payments-panel .type-badge.adhoc {
   background: var(--cyan-dim);
   color: var(--cyan);
   border: 1px solid rgba(0, 229, 255, 0.3);

@@ -76,7 +76,7 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
           {adjustments.map(a => (
             <tr key={a.id}>
               <td>{formatDate(a.date)}</td>
-              <td className="amount-negative">${Number(a.amount).toLocaleString()}</td>
+              <td className="amount-negative">-${Math.abs(Number(a.amount)).toLocaleString()}</td>
               <td style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{a.notes ?? '—'}</td>
               <td>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -90,7 +90,7 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
         <tfoot>
           <tr>
             <td colSpan={3} style={{ paddingTop: '0.75rem', color: 'var(--text-dim)', fontSize: '0.7rem', letterSpacing: '0.1em' }}>TOTAL ADJUSTMENTS</td>
-            <td style={{ paddingTop: '0.75rem' }} className="amount-negative">${total.toLocaleString()}</td>
+            <td style={{ paddingTop: '0.75rem' }} className="amount-negative">-${Math.abs(total).toLocaleString()}</td>
           </tr>
         </tfoot>
       </table>
