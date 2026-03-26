@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import Modal from './Modal'
+import DatePicker from './DatePicker'
 import './PaymentsPanel.css'
 
 const PAGE_SIZE = 6
@@ -118,7 +119,7 @@ export default function PaymentsPanel({ payments, onRefresh }) {
         <Modal title={editing ? 'Edit Payment' : 'Add Payment'} onClose={() => setShowModal(false)}>
           <div className="form-field">
             <label>Date</label>
-            <input type="date" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} />
+            <DatePicker value={form.date} onChange={date => setForm(f => ({ ...f, date }))} />
           </div>
           <div className="form-field">
             <label>Amount ($)</label>

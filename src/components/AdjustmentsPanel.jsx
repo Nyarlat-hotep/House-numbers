@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import Modal from './Modal'
+import DatePicker from './DatePicker'
 
 function formatDate(dateStr) {
   const [year, month] = dateStr.split('-')
@@ -99,7 +100,7 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
         <Modal title={editing ? 'Edit Adjustment' : 'Add Adjustment'} onClose={() => setShowModal(false)}>
           <div className="form-field">
             <label>Date</label>
-            <input type="date" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} />
+            <DatePicker value={form.date} onChange={date => setForm(f => ({ ...f, date }))} />
           </div>
           <div className="form-field">
             <label>Reduction Amount ($)</label>
