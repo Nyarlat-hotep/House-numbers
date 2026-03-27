@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
 import DatePicker from './DatePicker'
 import './PaymentsPanel.css'
@@ -92,8 +93,8 @@ export default function PaymentsPanel({ payments, onRefresh }) {
               <td style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{p.notes ?? '—'}</td>
               <td>
                 <div className="row-actions">
-                  <button className="btn" onClick={() => openEdit(p)}>Edit</button>
-                  <button className="btn btn-danger" onClick={() => handleDelete(p.id)}>Del</button>
+                  <button className="btn-icon" style={{ color: 'var(--cyan)' }} onClick={() => openEdit(p)}><Pencil size={14} /></button>
+                  <button className="btn-icon" style={{ color: 'var(--red)' }} onClick={() => handleDelete(p.id)}><Trash2 size={14} /></button>
                 </div>
               </td>
             </tr>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
 import DatePicker from './DatePicker'
 
@@ -80,9 +81,9 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
               <td className="amount-negative">-${Math.abs(Number(a.amount)).toLocaleString()}</td>
               <td style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{a.notes ?? '—'}</td>
               <td>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <button className="btn" onClick={() => openEdit(a)}>Edit</button>
-                  <button className="btn btn-danger" onClick={() => handleDelete(a.id)}>Del</button>
+                <div style={{ display: 'flex', gap: '0.25rem' }}>
+                  <button className="btn-icon" style={{ color: 'var(--cyan)' }} onClick={() => openEdit(a)}><Pencil size={14} /></button>
+                  <button className="btn-icon" style={{ color: 'var(--red)' }} onClick={() => handleDelete(a.id)}><Trash2 size={14} /></button>
                 </div>
               </td>
             </tr>

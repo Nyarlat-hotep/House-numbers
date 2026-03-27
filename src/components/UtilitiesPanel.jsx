@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
+import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
 
 function emptyForm() {
@@ -83,9 +84,9 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
                 <td className="amount-positive">${(Number(u.monthly_cost) / 2).toLocaleString()}</td>
                 <td style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{u.notes ?? '—'}</td>
                 <td>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button className="btn" onClick={() => openEdit(u)}>Edit</button>
-                    <button className="btn btn-danger" onClick={() => handleDelete(u.id)}>Del</button>
+                  <div style={{ display: 'flex', gap: '0.25rem' }}>
+                    <button className="btn-icon" style={{ color: 'var(--cyan)' }} onClick={() => openEdit(u)}><Pencil size={14} /></button>
+                    <button className="btn-icon" style={{ color: 'var(--red)' }} onClick={() => handleDelete(u.id)}><Trash2 size={14} /></button>
                   </div>
                 </td>
               </tr>

@@ -57,6 +57,22 @@
   box-shadow: var(--red-glow);
 }
 
+.btn-icon {
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.45;
+  transition: opacity 0.15s, color 0.15s;
+  color: inherit;
+}
+
+.btn-icon:hover {
+  opacity: 1;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
