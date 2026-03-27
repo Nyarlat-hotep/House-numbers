@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
+import ConfirmDialog from './ConfirmDialog'
 
 function emptyForm() {
   return { name: '', monthly_cost: '', notes: '' }
@@ -11,6 +12,7 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
   const [showModal, setShowModal] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(emptyForm())
+  const [confirmDelete, setConfirmDelete] = useState(null)
   const [appraisalInput, setAppraisalInput] = useState(String(config?.initial_appraisal ?? ''))
   const [editingAppraisal, setEditingAppraisal] = useState(false)
 
@@ -45,9 +47,13 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
     onRefresh()
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Delete this utility?')) return
-    await supabase.from('utilities').delete().eq('id', id)
+  function handleDelete(id) {
+    setConfirmDelete(id)
+  }
+
+  async function doDelete() {
+    await supabase.from('utilities').delete().eq('id', confirmDelete)
+    setConfirmDelete(null)
     onRefresh()
   }
 
@@ -93,6 +99,14 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
             ))}
           </tbody>
         </table>
+
+        {confirmDelete !== null && (
+          <ConfirmDialog
+            message="Are you sure you want to delete this utility? This cannot be undone."
+            onConfirm={doDelete}
+            onCancel={() => setConfirmDelete(null)}
+          />
+        )}
 
         {showModal && (
           <Modal title={editing ? 'Edit Utility' : 'Add Utility'} onClose={() => setShowModal(false)}>

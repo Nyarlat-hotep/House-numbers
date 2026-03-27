@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
+import ConfirmDialog from './ConfirmDialog'
 import DatePicker from './DatePicker'
 import './PaymentsPanel.css'
 
@@ -22,6 +23,7 @@ export default function PaymentsPanel({ payments, onRefresh }) {
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(emptyForm())
   const [page, setPage] = useState(1)
+  const [confirmDelete, setConfirmDelete] = useState(null)
 
   function openAdd() {
     setEditing(null)
@@ -56,9 +58,13 @@ export default function PaymentsPanel({ payments, onRefresh }) {
     onRefresh()
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Delete this payment?')) return
-    await supabase.from('payments').delete().eq('id', id)
+  function handleDelete(id) {
+    setConfirmDelete(id)
+  }
+
+  async function doDelete() {
+    await supabase.from('payments').delete().eq('id', confirmDelete)
+    setConfirmDelete(null)
     onRefresh()
   }
 
@@ -114,6 +120,14 @@ export default function PaymentsPanel({ payments, onRefresh }) {
           <span className="page-indicator">Page {currentPage} / {totalPages}</span>
           <button className="btn" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next →</button>
         </div>
+      )}
+
+      {confirmDelete !== null && (
+        <ConfirmDialog
+          message="Are you sure you want to delete this payment? This cannot be undone."
+          onConfirm={doDelete}
+          onCancel={() => setConfirmDelete(null)}
+        />
       )}
 
       {showModal && (
