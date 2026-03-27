@@ -21,7 +21,6 @@
   font-size: 0.65rem;
   letter-spacing: 0.25em;
   color: var(--text-dim);
-  text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
@@ -29,7 +28,7 @@
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;
   color: var(--cyan);
-  text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.2);
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4), 0 0 40px rgba(0, 229, 255, 0.1);
   letter-spacing: 0.05em;
   line-height: 1.1;
   margin-bottom: 1.5rem;
@@ -52,7 +51,6 @@
   font-size: 0.6rem;
   letter-spacing: 0.15em;
   color: var(--text-dim);
-  text-transform: uppercase;
 }
 
 .stat-value {

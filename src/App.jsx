@@ -39,7 +39,7 @@ function App() {
 
   if (loading) return (
     <div style={{ color: 'var(--cyan)', padding: '2rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
-      LOADING...
+      Loading...
     </div>
   )
 

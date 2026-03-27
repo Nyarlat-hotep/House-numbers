@@ -91,7 +91,7 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={3} style={{ paddingTop: '0.75rem', color: 'var(--text-dim)', fontSize: '0.7rem', letterSpacing: '0.1em' }}>TOTAL ADJUSTMENTS</td>
+            <td colSpan={3} style={{ paddingTop: '0.75rem', color: 'var(--text-dim)', fontSize: '0.7rem', letterSpacing: '0.1em' }}>Total adjustments</td>
             <td style={{ paddingTop: '0.75rem' }} className="amount-negative">-${Math.abs(total).toLocaleString()}</td>
           </tr>
         </tfoot>

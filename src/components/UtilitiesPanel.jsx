@@ -119,7 +119,7 @@ export default function UtilitiesPanel({ utilities, config, onRefresh }) {
       <div className="panel">
         <div className="panel-title">Settings</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Starting Appraisal</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', letterSpacing: '0.1em', }}>Starting Appraisal</span>
           {editingAppraisal ? (
             <>
               <input

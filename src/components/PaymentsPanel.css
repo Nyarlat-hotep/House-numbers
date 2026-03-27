@@ -1,7 +1,6 @@
 .payments-panel .type-badge {
   font-size: 0.6rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   padding: 0.2rem 0.5rem;
   border-radius: 2px;
 }
@@ -48,7 +47,6 @@
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   color: var(--text-dim);
-  text-transform: uppercase;
   min-width: 80px;
   text-align: center;
 }

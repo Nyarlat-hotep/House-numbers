@@ -102,7 +102,7 @@ export default function PaymentsPanel({ payments, onRefresh }) {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={4} style={{ paddingTop: '0.75rem', color: 'var(--text-dim)', fontSize: '0.7rem', letterSpacing: '0.1em' }}>TOTAL PAID</td>
+            <td colSpan={4} style={{ paddingTop: '0.75rem', color: 'var(--text-dim)', fontSize: '0.7rem', letterSpacing: '0.1em' }}>Total paid</td>
             <td style={{ paddingTop: '0.75rem' }} className="amount-positive">${total.toLocaleString()}</td>
           </tr>
         </tfoot>
