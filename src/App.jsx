@@ -18,7 +18,7 @@ function App() {
     const [configRes, pmtsRes, adjsRes, utilsRes] = await Promise.all([
       supabase.from('config').select('*').single(),
       supabase.from('payments').select('*').order('date', { ascending: false }),
-      supabase.from('adjustments').select('*').order('date', { ascending: true }),
+      supabase.from('adjustments').select('*').order('date', { ascending: false }),
       supabase.from('utilities').select('*').order('name'),
     ])
 
