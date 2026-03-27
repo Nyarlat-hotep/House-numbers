@@ -27,6 +27,10 @@
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
 }
 
+.modal--danger::before {
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+}
+
 .modal-title {
   font-size: 0.7rem;
   letter-spacing: 0.2em;

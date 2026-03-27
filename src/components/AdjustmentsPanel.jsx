@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { Pencil, Trash2 } from 'lucide-react'
 import Modal from './Modal'
+import ConfirmDialog from './ConfirmDialog'
 import DatePicker from './DatePicker'
 
 function formatDate(dateStr) {
@@ -18,6 +19,7 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
   const [showModal, setShowModal] = useState(false)
   const [editing, setEditing] = useState(null)
   const [form, setForm] = useState(emptyForm())
+  const [confirmDelete, setConfirmDelete] = useState(null)
 
   function openAdd() {
     setEditing(null)
@@ -50,9 +52,13 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
     onRefresh()
   }
 
-  async function handleDelete(id) {
-    if (!confirm('Delete this adjustment?')) return
-    await supabase.from('adjustments').delete().eq('id', id)
+  function handleDelete(id) {
+    setConfirmDelete(id)
+  }
+
+  async function doDelete() {
+    await supabase.from('adjustments').delete().eq('id', confirmDelete)
+    setConfirmDelete(null)
     onRefresh()
   }
 
@@ -96,6 +102,14 @@ export default function AdjustmentsPanel({ adjustments, onRefresh }) {
           </tr>
         </tfoot>
       </table>
+
+      {confirmDelete !== null && (
+        <ConfirmDialog
+          message="Are you sure you want to delete this adjustment? This cannot be undone."
+          onConfirm={doDelete}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
 
       {showModal && (
         <Modal title={editing ? 'Edit Adjustment' : 'Add Adjustment'} onClose={() => setShowModal(false)}>
