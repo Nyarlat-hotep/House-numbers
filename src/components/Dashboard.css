@@ -62,6 +62,26 @@
 .stat-value.green { color: var(--green); }
 .stat-value.red { color: var(--red); }
 
+.signout-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  opacity: 0.45;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.signout-btn:hover {
+  opacity: 1;
+  color: var(--red);
+}
+
 @media (max-width: 640px) {
   .dashboard {
     padding: 1.5rem 1rem 1rem;
